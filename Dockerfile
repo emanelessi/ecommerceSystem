@@ -1,17 +1,14 @@
 FROM php:8.2-fpm
 
-
 RUN apt-get update && apt-get install -y curl unzip \
     && curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer
-
-RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
 WORKDIR /var/www/html
 
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
