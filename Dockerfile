@@ -7,7 +7,6 @@ RUN apt-get update && apt-get install -y curl unzip \
 WORKDIR /var/www/html
 
 COPY . .
-COPY vendor/ ./vendor/
 
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
