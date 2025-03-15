@@ -1,9 +1,11 @@
 FROM php:8.2-fpm
 
-RUN apt-get update && apt-get install -y unzip libzip-dev \
-    && docker-php-ext-configure zip \
-    && docker-php-ext-install zip \
-    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+RUN apt-get update && apt-get install -y curl unzip \
+    && curl -sS https://getcomposer.org/installer | php \
+    && mv composer.phar /usr/local/bin/composer
+
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
 WORKDIR /var/www/html
 
@@ -15,4 +17,4 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 
 EXPOSE 8000
 
-CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"]
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
