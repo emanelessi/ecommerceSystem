@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "943f9d94084560c0eda91309a6dc071d",
+    "content-hash": "3094e3312ec0170866ea0967dd3a9f7e",
     "packages": [
         {
             "name": "brick/math",
@@ -1732,7 +1732,7 @@
             "dist": {
                 "type": "path",
                 "url": "./vendor/laravel/nova",
-                "reference": "1a2e0bba4cbba810d83284a803369ad347b532db"
+                "reference": "40baf552313d383ee861217afc720a5d16b59d98"
             },
             "require": {
                 "brick/money": "^0.5.0|^0.6.0|^0.7.0|^0.8.0",
@@ -1830,6 +1830,7 @@
                 "laravel"
             ],
             "transport-options": {
+                "symlink": false,
                 "relative": true
             }
         },

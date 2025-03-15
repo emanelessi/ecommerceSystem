@@ -8,6 +8,8 @@ WORKDIR /var/www/html
 
 COPY . .
 
+COPY vendor/ ./vendor/
+
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
