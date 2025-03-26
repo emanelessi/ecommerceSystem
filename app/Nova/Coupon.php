@@ -3,7 +3,12 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Coupon extends Resource
@@ -41,6 +46,12 @@ class Coupon extends Resource
     {
         return [
             ID::make()->sortable(),
+            Text::make('Code')->sortable()->rules('required', 'max:255'),
+            Number::make('Discount')->sortable()->rules('required', 'min:0'),
+            Number::make('Usage Limit')->nullable()->sortable(),
+            DateTime::make('Expires At')->nullable()->sortable(),
+            BelongsToMany::make('Products'),
+            BelongsTo::make('User')->searchable(),
         ];
     }
 

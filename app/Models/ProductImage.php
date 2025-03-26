@@ -9,14 +9,14 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class Shipping extends Model
+class ProductImage extends Model
 {
-    use   HasFactory,  softDeletes;
+    use  HasFactory, softDeletes;
 
     protected $guarded = [];
 
-    public function order()
+    public function product()
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Product::class);
     }
 }

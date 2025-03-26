@@ -3,7 +3,10 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Payment extends Resource
@@ -41,6 +44,27 @@ class Payment extends Resource
     {
         return [
             ID::make()->sortable(),
+            BelongsTo::make('Order')
+                ->sortable()
+                ->searchable(),
+
+            Select::make('Payment Method')
+                ->options([
+                    'Stripe' => 'Stripe',
+                    'PayPal' => 'PayPal',
+                    'COD' => 'Cash on Delivery',
+                ])
+                ->sortable()
+                ->searchable(),
+
+            Select::make('Status')
+                ->options([
+                    'pending' => 'Pending',
+                    'completed' => 'Completed',
+                    'failed' => 'Failed',
+                ])
+                ->sortable()
+                ->searchable()
         ];
     }
 

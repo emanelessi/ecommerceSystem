@@ -16,8 +16,10 @@ return new class extends Migration
             $table->string('code')->unique();
             $table->decimal('discount', 10, 2);
             $table->integer('usage_limit')->nullable();
-            $table->timestamp('expires_at')->nullable();
+            $table->dateTime('expires_at')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

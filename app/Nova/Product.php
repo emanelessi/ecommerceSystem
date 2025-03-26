@@ -8,6 +8,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Product extends Resource
@@ -45,11 +46,13 @@ class Product extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Name')->sortable(),
-            Number::make('Price')->step(0.01),
-            Number::make('Stock'),
-            BelongsTo::make('Category'),
-            Image::make('Image'),
+            BelongsTo::make('Category')->searchable(),
+            Text::make('Name')
+                ->sortable()
+                ->rules('required', 'max:255'),
+            Number::make('Price')->step(0.01)->rules('required', 'min:0'),
+            Number::make('Stock')->rules('required', 'min:0'),
+            Textarea::make('Description')->alwaysShow()->rules('nullable'),
         ];
     }
 

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->decimal('total_price', 10, 2);
             $table->string('status')->default('pending'); // pending, shipped, delivered
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -3,7 +3,9 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class OrderItem extends Resource
@@ -41,6 +43,14 @@ class OrderItem extends Resource
     {
         return [
             ID::make()->sortable(),
+            BelongsTo::make('Order')->sortable()->searchable(),
+            BelongsTo::make('Product')->sortable()->searchable(),
+            Number::make('Quantity')->sortable()->min(1),
+            Number::make('Price')->step(0.01)->sortable(),
+            Number::make('Total', function () {
+                return $this->price * $this->quantity;
+            })->onlyOnIndex(),
+
         ];
     }
 

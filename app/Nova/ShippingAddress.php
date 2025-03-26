@@ -3,17 +3,19 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Customer extends Resource
+class ShippingAddress extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
-     * @var class-string<\App\Models\Customer>
+     * @var class-string<\App\Models\ShippingAddress>
      */
-    public static $model = \App\Models\Customer::class;
+    public static $model = \App\Models\ShippingAddress::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -41,6 +43,11 @@ class Customer extends Resource
     {
         return [
             ID::make()->sortable(),
+            BelongsTo::make('User')->searchable(),
+            Text::make('Address')->sortable()->rules('required', 'max:255'),
+            Text::make('City')->sortable()->rules('required', 'max:255'),
+            Text::make('Postal Code')->sortable()->rules('required', 'max:10'),
+            Text::make('Country')->sortable()->rules('required', 'max:255'),
         ];
     }
 

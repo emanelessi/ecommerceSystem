@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('tracking_number')->nullable();
             $table->string('status')->default('pending'); // pending, in transit, delivered
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

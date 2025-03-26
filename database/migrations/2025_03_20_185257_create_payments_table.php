@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('payment_method'); // Stripe, PayPal, COD
             $table->string('status')->default('pending');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

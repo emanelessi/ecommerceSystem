@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('image_path');
             $table->boolean('is_main')->default(false);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

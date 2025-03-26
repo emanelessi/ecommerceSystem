@@ -3,7 +3,11 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Review extends Resource
@@ -41,6 +45,10 @@ class Review extends Resource
     {
         return [
             ID::make()->sortable(),
+            BelongsTo::make('User')->searchable(),
+            BelongsTo::make('Product')->searchable(),
+            Number::make('Rating')->sortable()->min(1)->max(5),
+            Textarea::make('Review')->sortable()->nullable(),
         ];
     }
 
