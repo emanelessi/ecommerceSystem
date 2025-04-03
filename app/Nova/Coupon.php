@@ -36,6 +36,16 @@ class Coupon extends Resource
         'id',
     ];
 
+    public static function label()
+    {
+        return __("Coupons");
+    }
+
+    public static function singularLabel()
+    {
+        return __('Coupon');
+    }
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -46,12 +56,12 @@ class Coupon extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Code')->sortable()->rules('required', 'max:255'),
-            Number::make('Discount')->sortable()->rules('required', 'min:0'),
-            Number::make('Usage Limit')->nullable()->sortable(),
-            DateTime::make('Expires At')->nullable()->sortable(),
-            BelongsToMany::make('Products'),
-            BelongsTo::make('User')->searchable(),
+            Text::make(__('Code'))->sortable()->rules('required', 'max:255'),
+            Number::make(__('Discount'))->sortable()->rules('required', 'min:0'),
+            Number::make(__('Usage Limit'))->nullable()->sortable(),
+            DateTime::make(__('Expires At'))->nullable()->sortable(),
+            BelongsToMany::make(__('Products'))->showCreateRelationButton()->filterable(),
+            BelongsTo::make(__('User'))->searchable()->showCreateRelationButton()->filterable(),
         ];
     }
 

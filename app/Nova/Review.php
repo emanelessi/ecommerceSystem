@@ -35,6 +35,16 @@ class Review extends Resource
         'id',
     ];
 
+    public static function label()
+    {
+        return __("Reviews");
+    }
+
+    public static function singularLabel()
+    {
+        return __('Review');
+    }
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -45,10 +55,10 @@ class Review extends Resource
     {
         return [
             ID::make()->sortable(),
-            BelongsTo::make('User')->searchable(),
-            BelongsTo::make('Product')->searchable(),
-            Number::make('Rating')->sortable()->min(1)->max(5),
-            Textarea::make('Review')->sortable()->nullable(),
+            BelongsTo::make(__('User'))->searchable()->showCreateRelationButton()->filterable(),
+            BelongsTo::make(__('Product'))->searchable()->showCreateRelationButton()->filterable(),
+            Number::make(__('Rating'))->sortable()->min(1)->max(5),
+            Textarea::make(__('Review'))->sortable()->nullable(),
         ];
     }
 

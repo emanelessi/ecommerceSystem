@@ -33,6 +33,16 @@ class OrderItem extends Resource
         'id',
     ];
 
+    public static function label()
+    {
+        return __("OrderItems");
+    }
+
+    public static function singularLabel()
+    {
+        return __('OrderItem');
+    }
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -43,14 +53,13 @@ class OrderItem extends Resource
     {
         return [
             ID::make()->sortable(),
-            BelongsTo::make('Order')->sortable()->searchable(),
-            BelongsTo::make('Product')->sortable()->searchable(),
-            Number::make('Quantity')->sortable()->min(1),
-            Number::make('Price')->step(0.01)->sortable(),
-            Number::make('Total', function () {
+            BelongsTo::make(__('Order'))->sortable()->searchable()->showCreateRelationButton()->filterable(),
+            BelongsTo::make(__('Product'))->sortable()->searchable()->showCreateRelationButton()->filterable(),
+            Number::make(__('Quantity'))->sortable()->min(1),
+            Number::make(__('Price'))->step(0.01)->sortable(),
+            Number::make(__('Total'), function () {
                 return $this->price * $this->quantity;
             })->onlyOnIndex(),
-
         ];
     }
 

@@ -33,6 +33,16 @@ class ShippingAddress extends Resource
         'id',
     ];
 
+    public static function label()
+    {
+        return __("Shipping Address");
+    }
+
+    public static function singularLabel()
+    {
+        return __('Shipping Address');
+    }
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -43,11 +53,11 @@ class ShippingAddress extends Resource
     {
         return [
             ID::make()->sortable(),
-            BelongsTo::make('User')->searchable(),
-            Text::make('Address')->sortable()->rules('required', 'max:255'),
-            Text::make('City')->sortable()->rules('required', 'max:255'),
-            Text::make('Postal Code')->sortable()->rules('required', 'max:10'),
-            Text::make('Country')->sortable()->rules('required', 'max:255'),
+            BelongsTo::make(__('User'))->searchable()->showCreateRelationButton()->filterable(),
+            Text::make(__('Address'))->sortable()->rules('required', 'max:255'),
+            Text::make(__('City'))->sortable()->rules('required', 'max:255'),
+            Text::make(__('Postal Code'))->sortable()->rules('required', 'max:10'),
+            Text::make(__('Country'))->sortable()->rules('required', 'max:255'),
         ];
     }
 

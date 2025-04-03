@@ -4,7 +4,6 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -34,6 +33,16 @@ class Payment extends Resource
         'id',
     ];
 
+    public static function label()
+    {
+        return __("Payment");
+    }
+
+    public static function singularLabel()
+    {
+        return __('Payment');
+    }
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -44,11 +53,11 @@ class Payment extends Resource
     {
         return [
             ID::make()->sortable(),
-            BelongsTo::make('Order')
+            BelongsTo::make(__('Order'))
                 ->sortable()
-                ->searchable(),
+                ->searchable()->showCreateRelationButton()->filterable(),
 
-            Select::make('Payment Method')
+            Select::make(__('Payment Method'))
                 ->options([
                     'Stripe' => 'Stripe',
                     'PayPal' => 'PayPal',
@@ -57,7 +66,7 @@ class Payment extends Resource
                 ->sortable()
                 ->searchable(),
 
-            Select::make('Status')
+            Select::make(__('Status'))
                 ->options([
                     'pending' => 'Pending',
                     'completed' => 'Completed',

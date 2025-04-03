@@ -30,8 +30,17 @@ class CustomerProfile extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id','phone','address','city','postal_code','country'
     ];
+    public static function label()
+    {
+        return __("CustomerProfile");
+    }
+
+    public static function singularLabel()
+    {
+        return __('CustomerProfile');
+    }
 
     /**
      * Get the fields displayed by the resource.
@@ -43,12 +52,12 @@ class CustomerProfile extends Resource
     {
         return [
             ID::make()->sortable(),
-            BelongsTo::make('User'),
-            Text::make('Phone')->nullable(),
-            Text::make('Address')->nullable(),
-            Text::make('City')->nullable(),
-            Text::make('Postal Code')->nullable(),
-            Text::make('Country')->nullable(),
+            BelongsTo::make(__('User'))->filterable()->showCreateRelationButton(),
+            Text::make(__('Phone'))->nullable()->filterable(),
+            Text::make(__('Address'))->nullable()->filterable(),
+            Text::make(__('City'))->nullable()->filterable(),
+            Text::make(__('Postal Code'))->nullable()->filterable(),
+            Text::make(__('Country'))->nullable()->filterable(),
         ];
     }
 

@@ -34,6 +34,16 @@ class Category extends Resource
         'id',
     ];
 
+    public static function label()
+    {
+        return __("categories");
+    }
+
+    public static function singularLabel()
+    {
+        return __('Category');
+    }
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -43,9 +53,9 @@ class Category extends Resource
     public function fields(NovaRequest $request)
     {
         return [
-            ID::make()->sortable(),
-            Text::make('Name')->sortable()->searchable(),
-            Textarea::make('Description')->sortable()->nullable(),
+            ID::make(__('ID'))->sortable()->sortable(),
+            Text::make(__('Name'))->sortable(),
+            Textarea::make(__('Description'))->sortable()->nullable(),
         ];
     }
 

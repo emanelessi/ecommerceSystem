@@ -5,7 +5,6 @@ namespace App\Nova;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
@@ -36,6 +35,16 @@ class Product extends Resource
         'id',
     ];
 
+    public static function label()
+    {
+        return __("Products");
+    }
+
+    public static function singularLabel()
+    {
+        return __('Product');
+    }
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -46,13 +55,13 @@ class Product extends Resource
     {
         return [
             ID::make()->sortable(),
-            BelongsTo::make('Category')->searchable(),
-            Text::make('Name')
+            BelongsTo::make(__('Category'))->searchable()->showCreateRelationButton()->filterable(),
+            Text::make(__('Name'))
                 ->sortable()
                 ->rules('required', 'max:255'),
-            Number::make('Price')->step(0.01)->rules('required', 'min:0'),
-            Number::make('Stock')->rules('required', 'min:0'),
-            Textarea::make('Description')->alwaysShow()->rules('nullable'),
+            Number::make(__('Price'))->step(0.01)->rules('required', 'min:0'),
+            Number::make(__('Stock'))->rules('required', 'min:0'),
+            Textarea::make(__('Description'))->alwaysShow()->rules('nullable'),
         ];
     }
 

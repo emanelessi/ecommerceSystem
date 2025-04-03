@@ -37,6 +37,16 @@ class Shipping extends Resource
         'id',
     ];
 
+    public static function label()
+    {
+        return __("Shipping");
+    }
+
+    public static function singularLabel()
+    {
+        return __('Shipping');
+    }
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -47,12 +57,12 @@ class Shipping extends Resource
     {
         return [
             ID::make()->sortable(),
-            BelongsTo::make('Order')->sortable()->searchable(),
-            Text::make('Tracking Number')->sortable()->nullable(),
-            Select::make('Status')->options([
-                'pending' => 'Pending',
-                'in_transit' => 'In Transit',
-                'delivered' => 'Delivered',
+            BelongsTo::make(__('Order'))->sortable()->searchable()->showCreateRelationButton()->filterable(),
+            Text::make(__('Tracking Number'))->sortable()->nullable(),
+            Select::make(__('Status'))->options([
+                'pending' => __('Pending'),
+                'in_transit' => __('In Transit'),
+                'delivered' => __('Delivered'),
             ])->sortable()->searchable(),
         ];
     }

@@ -34,6 +34,16 @@ class ProductImage extends Resource
         'id',
     ];
 
+    public static function label()
+    {
+        return __("ProductImages");
+    }
+
+    public static function singularLabel()
+    {
+        return __('ProductImage');
+    }
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -44,14 +54,14 @@ class ProductImage extends Resource
     {
         return [
             ID::make()->sortable(),
-            BelongsTo::make('Product')->searchable(),
+            BelongsTo::make(__('Product'))->searchable()->showCreateRelationButton()->filterable(),
 
-            Image::make('Image', 'image_path')
+            Image::make(__('Image'), 'image_path')
                 ->disk('public')
                 ->creationRules('required', 'image', 'max:2048')
                 ->updateRules('nullable', 'image', 'max:2048'),
 
-            Boolean::make('Is Main'),
+            Boolean::make(__('Is Main')),
         ];
     }
 

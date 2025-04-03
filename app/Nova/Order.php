@@ -37,6 +37,16 @@ class Order extends Resource
         'id',
     ];
 
+    public static function label()
+    {
+        return __("Orders");
+    }
+
+    public static function singularLabel()
+    {
+        return __('Order');
+    }
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -47,27 +57,26 @@ class Order extends Resource
     {
         return [
             ID::make()->sortable(),
-            BelongsTo::make('User')->searchable(),
-            Number::make('Total Price')->sortable()->step(0.01),
-            Select::make('Status')
+            BelongsTo::make(__('User'))->searchable()->showCreateRelationButton()->filterable(),
+            Number::make(__('Total Price'))->sortable()->step(0.01),
+            Select::make(__('Status'))
                 ->options([
-                    'pending' => 'Pending',
-                    'shipped' => 'Shipped',
-                    'delivered' => 'Delivered',
+                    'pending' => __('Pending'),
+                    'shipped' => __('Shipped'),
+                    'delivered' => __('Delivered'),
                 ])
                 ->displayUsingLabels()
                 ->sortable(),
-            HasMany::make('Order Items'),
-            HasOne::make('Payment'),
-            HasOne::make('Shipping'),
-            Text::make('Payment Status', function () {
-                return $this->payment?->status ?? 'Not Paid';
+            HasMany::make(__('Order Items')),
+            HasOne::make(__('Payment')),
+            HasOne::make(__('Shipping')),
+            Text::make(__('Payment Status'), function () {
+                return $this->payment?->status ?? __('Not Paid');
             }),
 
-            Text::make('Shipping Status', function () {
-                return $this->shipping?->status ?? 'Not Shipped';
+            Text::make(__('Shipping Status'), function () {
+                return $this->shipping?->status ?? __('Not Shipped');
             }),
-
         ];
     }
 

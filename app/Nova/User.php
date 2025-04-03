@@ -34,8 +34,18 @@ class User extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'email',
+        'id', 'name', 'email','phone',
     ];
+
+    public static function label()
+    {
+        return __("Users");
+    }
+
+    public static function singularLabel()
+    {
+        return __('User');
+    }
 
     /**
      * Get the fields displayed by the resource.
@@ -48,20 +58,22 @@ class User extends Resource
         return [
             ID::make()->sortable(),
             Gravatar::make()->maxWidth(50),
-            Text::make('Name')
+            Text::make(__('Name'), 'name')
                 ->sortable()
-                ->rules('required', 'max:255'),
-            Text::make('Email')
+                ->rules('required', 'max:255')
+                ->filterable(),
+            Text::make(__('Email'))
                 ->sortable()
                 ->rules('required', 'email', 'max:254')
                 ->creationRules('unique:users,email')
-                ->updateRules('unique:users,email,{{resourceId}}'),
-            Text::make('Phone')->sortable()->nullable(),
-            Password::make('Password')
+                ->updateRules('unique:users,email,{{resourceId}}')
+                ->filterable(),
+            Text::make(__('Phone'))->sortable()->nullable()->filterable(),
+            Password::make(__('Password'))
                 ->onlyOnForms()
                 ->creationRules('required', Rules\Password::defaults())
                 ->updateRules('nullable', Rules\Password::defaults()),
-            Image::make('Profile Image')->disk('public')->nullable(),
+//            Image::make('Profile Image')->disk('public')->nullable(),
         ];
     }
 
